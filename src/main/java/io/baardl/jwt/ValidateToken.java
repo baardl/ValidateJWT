@@ -18,9 +18,6 @@ public class ValidateToken {
 	public static boolean validateToken(String publicKeyUrl, String jwt) throws MalformedClaimException {
 		HttpsJwks httpsJkws = new HttpsJwks(publicKeyUrl);
 
-		// The HttpsJwksVerificationKeyResolver uses JWKs obtained from the HttpsJwks and will select the
-		// most appropriate one to use for verification based on the Key ID and other factors provided
-		// in the header of the JWS/JWT.
 		HttpsJwksVerificationKeyResolver httpsJwksKeyResolver = new HttpsJwksVerificationKeyResolver(httpsJkws);
 
 		JwtConsumer jwtConsumer = new JwtConsumerBuilder()
@@ -34,7 +31,7 @@ public class ValidateToken {
 										  .setJwsAlgorithmConstraints( // only allow the expected signature algorithm(s) in the given context
 																	   new AlgorithmConstraints(AlgorithmConstraints.ConstraintType.WHITELIST, // which is only RS256 here
 																								AlgorithmIdentifiers.RSA_USING_SHA256))
-										  .build(); // create the JwtConsumer instance
+										  .build();
 
 		try {
 			//  Validate the JWT and process it to the Claims
