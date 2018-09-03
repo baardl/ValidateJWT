@@ -11,6 +11,8 @@ import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.keys.resolvers.HttpsJwksVerificationKeyResolver;
 
+import io.baardl.jwt.utils.FileUtils;
+
 public class ValidateToken {
 
 	public static boolean validateToken(String publicKeyUrl, String jwt) throws MalformedClaimException {
@@ -62,6 +64,17 @@ public class ValidateToken {
 	}
 
 	public static void main(String[] args) {
-
+		String publicKeyUrl = System.getProperty("publicKeyUrl");
+		System.out.println("publicKeyUrl: " + publicKeyUrl);
+		String jwt = System.getProperty("jwt");
+        if (jwt == null || jwt.isEmpty()) {
+			FileUtils fileUtils = new FileUtils();
+			jwt = fileUtils.readFileAsString("./jwt.txt");
+		}
+		try {
+			ValidateToken.validateToken(publicKeyUrl, jwt);
+		} catch (MalformedClaimException e) {
+			System.out.println("Failed to validate jwt. Reason: " + e.getMessage());
+		}
 	}
 }
