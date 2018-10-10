@@ -26,7 +26,7 @@ public class ValidateToken {
 //										  .setAllowedClockSkewInSeconds(30) // allow some leeway in validating time based claims to account for clock skew
 //										  .setRequireSubject() // the JWT must have a subject claim
 //										  .setExpectedIssuer("Issuer") // whom the JWT needs to have been issued by
-//										  .setExpectedAudience("Audience") // to whom the JWT is intended for
+//										  .setExpectedAudience("urn:microsoft:userinfo") // to whom the JWT is intended for
 //										  .setVerificationKey(rsaJsonWebKey.getKey()) // verify the signature with the public key
 										  .setJwsAlgorithmConstraints( // only allow the expected signature algorithm(s) in the given context
 																	   new AlgorithmConstraints(AlgorithmConstraints.ConstraintType.WHITELIST, // which is only RS256 here
